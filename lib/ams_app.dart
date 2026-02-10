@@ -7,14 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AmsApp extends StatelessWidget {
-  const AmsApp({super.key})
+  const AmsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: MediaQuery
-          .of(context)
-          .orientation == Orientation.landscape
+      designSize: MediaQuery.of(context).orientation == Orientation.landscape
           ? const Size(844, 390)
           : const Size(390, 844),
       minTextAdapt: false,
@@ -28,14 +26,13 @@ class AmsApp extends StatelessWidget {
           //   WidgetsBinding.instance.addPostFrameCallback((_) => )
           // }
         },
-        builder: (context, viewModel, state) =>
-            MaterialApp.router(
-              scaffoldMessengerKey: SnackBarUtil.scaffoldMessengerKey,
-              debugShowCheckedModeBanner: false,
-              routerDelegate: NavigationHandler.instance.routerDelegate,
-              routeInformationParser: NavigationHandler.instance.routeInformationParser,
-              builder: (context, child) => getFixedFontAmsBuilder(context, child),
-            ),
+        builder: (context, viewModel, state) => MaterialApp.router(
+          scaffoldMessengerKey: SnackBarUtil.scaffoldMessengerKey,
+          debugShowCheckedModeBanner: false,
+          routerDelegate: NavigationHandler.instance.routerDelegate,
+          routeInformationParser: NavigationHandler.instance.routeInformationParser,
+          builder: (context, child) => getFixedFontAmsBuilder(context, child),
+        ),
       ),
     );
   }
