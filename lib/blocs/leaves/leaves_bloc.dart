@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import '../../models/leave_model.dart';
 
 enum LeaveTimeFilter { past, upcoming, pending }
@@ -59,14 +60,14 @@ class LeavesLoaded extends LeavesState {
 
   @override
   List<Object> get props => [
-        allLeaves,
-        filteredLeaves,
-        currentFilter,
-        leaveBalance,
-        leavesApproved,
-        leavesCancelled,
-        leavesPending
-      ];
+    allLeaves,
+    filteredLeaves,
+    currentFilter,
+    leaveBalance,
+    leavesApproved,
+    leavesCancelled,
+    leavesPending,
+  ];
 
   LeavesLoaded copyWith({
     List<LeaveModel>? allLeaves,
@@ -90,6 +91,7 @@ class LeavesLoaded extends LeavesState {
 }
 
 // Bloc
+@injectable
 class LeavesBloc extends Bloc<LeavesEvent, LeavesState> {
   LeavesBloc() : super(LeavesInitial()) {
     on<LoadLeaves>(_onLoadLeaves);
@@ -97,7 +99,9 @@ class LeavesBloc extends Bloc<LeavesEvent, LeavesState> {
   }
 
   Future<void> _onLoadLeaves(
-      LoadLeaves event, Emitter<LeavesState> emit) async {
+    LoadLeaves event,
+    Emitter<LeavesState> emit,
+  ) async {
     emit(LeavesLoading());
     try {
       final allLeaves = [
@@ -131,53 +135,66 @@ class LeavesBloc extends Bloc<LeavesEvent, LeavesState> {
       ];
 
       final balance = 20;
-      final approved =
-          allLeaves.where((l) => l.status == LeaveStatus.approved).length;
-      final cancelled =
-          allLeaves.where((l) => l.status == LeaveStatus.cancelled).length;
-      final pending =
-          allLeaves.where((l) => l.status == LeaveStatus.pending).length;
+      final approved = allLeaves
+          .where((l) => l.status == LeaveStatus.approved)
+          .length;
+      final cancelled = allLeaves
+          .where((l) => l.status == LeaveStatus.cancelled)
+          .length;
+      final pending = allLeaves
+          .where((l) => l.status == LeaveStatus.pending)
+          .length;
 
       // Default filter: Upcoming
       final filter = LeaveTimeFilter.upcoming;
       final filtered = _filterLeaves(allLeaves, filter);
 
-      emit(LeavesLoaded(
-        allLeaves: allLeaves,
-        filteredLeaves: filtered,
-        currentFilter: filter,
-        leaveBalance: balance,
-        leavesApproved: approved,
-        leavesCancelled: cancelled,
-        leavesPending: pending,
-      ));
+      emit(
+        LeavesLoaded(
+          allLeaves: allLeaves,
+          filteredLeaves: filtered,
+          currentFilter: filter,
+          leaveBalance: balance,
+          leavesApproved: approved,
+          leavesCancelled: cancelled,
+          leavesPending: pending,
+        ),
+      );
     } catch (e) {
       emit(const LeavesError('Failed to load leaves'));
     }
   }
 
   void _onFilterLeavesChanged(
-      FilterLeavesChanged event, Emitter<LeavesState> emit) {
+    FilterLeavesChanged event,
+    Emitter<LeavesState> emit,
+  ) {
     if (state is LeavesLoaded) {
       final currentState = state as LeavesLoaded;
       final filtered = _filterLeaves(currentState.allLeaves, event.filter);
-      emit(currentState.copyWith(
-        filteredLeaves: filtered,
-        currentFilter: event.filter,
-      ));
+      emit(
+        currentState.copyWith(
+          filteredLeaves: filtered,
+          currentFilter: event.filter,
+        ),
+      );
     }
   }
 
   List<LeaveModel> _filterLeaves(
-      List<LeaveModel> leaves, LeaveTimeFilter filter) {
+    List<LeaveModel> leaves,
+    LeaveTimeFilter filter,
+  ) {
     switch (filter) {
       case LeaveTimeFilter.past:
         return leaves.where((l) => l.date.isBefore(DateTime.now())).toList();
       case LeaveTimeFilter.upcoming:
         return leaves
-            .where((l) =>
-                l.date.isAfter(DateTime.now()) &&
-                l.status == LeaveStatus.approved)
+            .where(
+              (l) =>
+                  l.date.isAfter(DateTime.now()) &&
+                  l.status == LeaveStatus.approved,
+            )
             .toList();
       case LeaveTimeFilter.pending:
         return leaves.where((l) => l.status == LeaveStatus.pending).toList();

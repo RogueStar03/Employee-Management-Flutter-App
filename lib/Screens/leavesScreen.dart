@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ams_android/blocs/leaves/leaves_bloc.dart';
 
 import 'package:ams_android/widgets/leaveElement.dart';
@@ -8,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../widgets/leavesAppbar.dart';
 import '../widgets/twoTextCard.dart';
 
+@RoutePage()
 class LeavesScreen extends StatefulWidget {
   static const id = 'leaveScreen';
   const LeavesScreen({super.key});
@@ -44,7 +46,11 @@ class _LeavesScreenState extends State<LeavesScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 12.0, right: 6.0, top: 12.0, bottom: 6.0),
+                            left: 12.0,
+                            right: 6.0,
+                            top: 12.0,
+                            bottom: 6.0,
+                          ),
                           child: TwoTextCard(
                             title: 'Leaves Balance',
                             content: state.leaveBalance.toString(),
@@ -56,7 +62,11 @@ class _LeavesScreenState extends State<LeavesScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 6.0, right: 12.0, top: 12.0, bottom: 6.0),
+                            left: 6.0,
+                            right: 12.0,
+                            top: 12.0,
+                            bottom: 6.0,
+                          ),
                           child: TwoTextCard(
                             title: 'Leaves Approved',
                             content: state.leavesApproved.toString(),
@@ -72,7 +82,11 @@ class _LeavesScreenState extends State<LeavesScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 12.0, right: 6.0, top: 6.0, bottom: 12.0),
+                            left: 12.0,
+                            right: 6.0,
+                            top: 6.0,
+                            bottom: 12.0,
+                          ),
                           child: TwoTextCard(
                             title: 'Leaves Cancelled',
                             content: state.leavesCancelled.toString(),
@@ -84,7 +98,11 @@ class _LeavesScreenState extends State<LeavesScreen> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 6.0, right: 12.0, top: 6.0, bottom: 12.0),
+                            left: 6.0,
+                            right: 12.0,
+                            top: 6.0,
+                            bottom: 12.0,
+                          ),
                           child: TwoTextCard(
                             title: 'Leaves Pending',
                             content: state.leavesPending.toString(),
@@ -98,19 +116,23 @@ class _LeavesScreenState extends State<LeavesScreen> {
                   SegmentedButton<LeaveTimeFilter>(
                     segments: const [
                       ButtonSegment<LeaveTimeFilter>(
-                          value: LeaveTimeFilter.past, label: Text('Past')),
+                        value: LeaveTimeFilter.past,
+                        label: Text('Past'),
+                      ),
                       ButtonSegment<LeaveTimeFilter>(
-                          value: LeaveTimeFilter.upcoming,
-                          label: Text('Upcoming')),
+                        value: LeaveTimeFilter.upcoming,
+                        label: Text('Upcoming'),
+                      ),
                       ButtonSegment<LeaveTimeFilter>(
-                          value: LeaveTimeFilter.pending,
-                          label: Text('Pending'))
+                        value: LeaveTimeFilter.pending,
+                        label: Text('Pending'),
+                      ),
                     ],
                     selected: <LeaveTimeFilter>{state.currentFilter},
                     onSelectionChanged: (Set<LeaveTimeFilter> filter) {
-                      context
-                          .read<LeavesBloc>()
-                          .add(FilterLeavesChanged(filter.first));
+                      context.read<LeavesBloc>().add(
+                        FilterLeavesChanged(filter.first),
+                      );
                     },
                   ),
                   Expanded(
@@ -122,13 +144,14 @@ class _LeavesScreenState extends State<LeavesScreen> {
                           buttonIcon: const Icon(Icons.access_alarm),
                           cardTitle: leave.title,
                           timeText: leave.time,
-                          dateText:
-                              DateFormat('MMM dd, yyyy').format(leave.date),
+                          dateText: DateFormat(
+                            'MMM dd, yyyy',
+                          ).format(leave.date),
                           descText: leave.description,
                         );
                       },
                     ),
-                  )
+                  ),
                 ],
               );
             } else if (state is LeavesError) {

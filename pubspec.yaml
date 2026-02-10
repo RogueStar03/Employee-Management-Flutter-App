@@ -29,13 +29,28 @@ dependencies:
   permission_handler: ^12.0.1
   # Location
   geolocator: ^14.0.2
+  # Logger
+  logger: ^2.6.2
+  # Screen Utility for different screen sizes
+  flutter_screenutil: ^5.9.3
+
+  auto_route_generator: ^10.4.0
+  retrofit_generator: ^10.2.1
+  injectable_generator: ^2.12.0
+
+  # Copy With for copying objects
+  copy_with_extension: ^11.0.0
+  copy_with_extension_gen: ^11.0.0
+
+  # Store Authentication Tokens
+  flutter_secure_storage: ^10.0.0
 
   cupertino_icons: ^1.0.8
   intl_utils: ^2.8.7
   sign_in_button: ^3.0.0
   font_awesome_flutter: ^10.7.0
   equatable: ^2.0.5
-
+  # Json Convert
   json_annotation: ^4.10.0
 
 dev_dependencies:

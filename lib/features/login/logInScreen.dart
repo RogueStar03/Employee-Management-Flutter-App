@@ -1,13 +1,13 @@
-import 'package:ams_android/constants.dart';
 import 'package:ams_android/blocs/login/login_bloc.dart';
+import 'package:ams_android/constants.dart';
 import 'package:ams_android/widgets/custom_text_field.dart';
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
+@RoutePage()
 class LoginScreen extends StatefulWidget {
-  static const id = 'loginScreen';
-
   const LoginScreen({super.key});
 
   @override
@@ -40,9 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             Navigator.pushReplacementNamed(context, 'dashboardScreen');
           } else if (state is LoginFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
           }
         },
         child: SafeArea(
@@ -118,10 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 0.8,
           ),
         ),
-        const Text(
-          'to EMS',
-          style: kRegularTitleStyle,
-        ),
+        const Text('to EMS', style: kRegularTitleStyle),
         Text(
           'Hello there, please login to continue',
           style: kThinLabelStyle.copyWith(
@@ -145,10 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             'Forgot Password',
-            style: kRegularLabelStyle.copyWith(
-              fontWeight: FontWeight.w700,
-              color: Colors.teal,
-            ),
+            style: kRegularLabelStyle.copyWith(fontWeight: FontWeight.w700, color: Colors.teal),
           ),
         ),
       ],
@@ -162,9 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final isLoading = state is LoginLoading;
         return SizedBox(
           width: double.infinity,
-          height: orientation == Orientation.portrait
-              ? screenHeight * 0.06
-              : screenHeight * 0.12,
+          height: orientation == Orientation.portrait ? screenHeight * 0.06 : screenHeight * 0.12,
           child: TextButton(
             style: kRoundedRectangleButton.copyWith(
               backgroundColor: WidgetStatePropertyAll(Colors.teal.shade700),
@@ -174,19 +164,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ? null
                 : () {
                     context.read<LoginBloc>().add(
-                          LoginSubmitted(
-                            _emailController.text,
-                            _passwordController.text,
-                          ),
-                        );
+                      LoginSubmitted(_emailController.text, _passwordController.text),
+                    );
                   },
             child: isLoading
                 ? const CircularProgressIndicator(color: Colors.white)
-                : const Text(
-                    'Login',
-                    textAlign: TextAlign.center,
-                    style: kRegularLabelStyle,
-                  ),
+                : const Text('Login', textAlign: TextAlign.center, style: kRegularLabelStyle),
           ),
         );
       },
@@ -198,10 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       children: <Widget>[
         const Expanded(child: Divider()),
-        Text(
-          "   Or Use Google Login   ",
-          style: kThinLabelStyle.copyWith(color: Colors.black54),
-        ),
+        Text("   Or Use Google Login   ", style: kThinLabelStyle.copyWith(color: Colors.black54)),
         const Expanded(child: Divider()),
       ],
     );
@@ -211,9 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildGoogleLoginButton(double screenHeight, Orientation orientation) {
     return SizedBox(
       width: double.infinity,
-      height: orientation == Orientation.portrait
-          ? screenHeight * 0.06
-          : screenHeight * 0.12,
+      height: orientation == Orientation.portrait ? screenHeight * 0.06 : screenHeight * 0.12,
       child: SignInButton(
         Buttons.google,
         onPressed: () {
@@ -228,10 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Didn\'t have an account?',
-          style: kThinLabelStyle.copyWith(color: Colors.black54),
-        ),
+        Text('Didn\'t have an account?', style: kThinLabelStyle.copyWith(color: Colors.black54)),
         TextButton(
           style: _transparentButtonStyle(),
           onPressed: () {
@@ -239,10 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             'Register',
-            style: kRegularLabelStyle.copyWith(
-              fontWeight: FontWeight.w700,
-              color: Colors.teal,
-            ),
+            style: kRegularLabelStyle.copyWith(fontWeight: FontWeight.w700, color: Colors.teal),
           ),
         ),
       ],
@@ -251,8 +223,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // Transparent Button Style (Reusable for Forgot Password and Register)
   ButtonStyle _transparentButtonStyle() {
-    return const ButtonStyle(
-      overlayColor: WidgetStatePropertyAll(Colors.transparent),
-    );
+    return const ButtonStyle(overlayColor: WidgetStatePropertyAll(Colors.transparent));
   }
 }

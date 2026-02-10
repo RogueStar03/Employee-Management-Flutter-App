@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 
 // Events
 abstract class LoginEvent extends Equatable {
@@ -43,13 +44,16 @@ class LoginFailure extends LoginState {
 }
 
 // Bloc
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<LoginSubmitted>(_onLoginSubmitted);
   }
 
   Future<void> _onLoginSubmitted(
-      LoginSubmitted event, Emitter<LoginState> emit) async {
+    LoginSubmitted event,
+    Emitter<LoginState> emit,
+  ) async {
     emit(LoginLoading());
     try {
       // Simulate network delay

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import '../../models/attendance_model.dart';
 import '../../models/employee_model.dart';
 
@@ -41,12 +42,16 @@ class DashboardLoaded extends DashboardState {
 }
 
 // Bloc
+@injectable
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardInitial()) {
     on<LoadDashboardData>(_onLoadDashboardData);
   }
 
-  Future<void> _onLoadDashboardData(LoadDashboardData event, Emitter<DashboardState> emit) async {
+  Future<void> _onLoadDashboardData(
+    LoadDashboardData event,
+    Emitter<DashboardState> emit,
+  ) async {
     emit(DashboardLoading());
     try {
       // Mock data loading

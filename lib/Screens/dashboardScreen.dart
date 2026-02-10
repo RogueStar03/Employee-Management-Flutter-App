@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ams_android/blocs/dashboard/dashboard_bloc.dart';
 import 'package:ams_android/widgets/dashboardPanelCard.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import '../widgets/horizontalCalendar.dart';
 import '../widgets/navbar.dart';
 import '../widgets/userAppBar.dart';
 
+@RoutePage()
 class DashboardScreen extends StatefulWidget {
   static const id = 'dashboardScreen';
   const DashboardScreen({super.key});
@@ -43,9 +45,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   'Today\'s attendance',
                   style: TextStyle(
-                      fontFamily: 'Dongle',
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w700),
+                    fontFamily: 'Dongle',
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               const Row(
@@ -85,9 +88,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   'Your Activity',
                   style: TextStyle(
-                      fontFamily: 'Dongle',
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w700),
+                    fontFamily: 'Dongle',
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Expanded(
@@ -103,8 +107,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           return DashBoardPanelCard(
                             buttonIcon: const Icon(Icons.login_rounded),
                             cardTitle: 'Check In',
-                            dateText: DateFormat('MMM dd, yyyy')
-                                .format(attendance.date),
+                            dateText: DateFormat(
+                              'MMM dd, yyyy',
+                            ).format(attendance.date),
                             timeText: attendance.checkInTime,
                             descText: attendance.status,
                           );
@@ -116,16 +121,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return const SizedBox.shrink();
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomAppBar(
-        child: SizedBox(
-          child: NavBar(),
-        ),
-      ),
+      bottomNavigationBar: const BottomAppBar(child: SizedBox(child: NavBar())),
     );
   }
 }
