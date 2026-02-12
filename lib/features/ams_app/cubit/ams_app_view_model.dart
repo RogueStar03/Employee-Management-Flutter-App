@@ -1,4 +1,4 @@
-import 'package:ams_android/bloc_architecture/base_cubit.dart';
+import 'package:ams_android/base/base_cubit.dart';
 import 'package:ams_android/core/logger/ams_logger.dart';
 import 'package:ams_android/di/injector.dart';
 import 'package:ams_android/features/ams_app/cubit/ams_app_state.dart';

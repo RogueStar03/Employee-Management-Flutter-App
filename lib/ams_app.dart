@@ -1,4 +1,4 @@
-import 'package:ams_android/bloc_architecture/base_view.dart';
+import 'package:ams_android/base/base_view.dart';
 import 'package:ams_android/core/navigation/navigation_handler.dart';
 import 'package:ams_android/features/ams_app/cubit/ams_app_state.dart';
 import 'package:ams_android/features/ams_app/cubit/ams_app_view_model.dart';

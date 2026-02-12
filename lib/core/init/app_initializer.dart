@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:ams_android/base/app_bloc_observer.dart';
+import 'package:ams_android/core/di/injection.dart';
+
 import 'package:ams_android/ams_app.dart';
-import 'package:ams_android/bloc_architecture/app_bloc_observer.dart';
 import 'package:ams_android/core/logger/ams_logger.dart';
 import 'package:ams_android/core/navigation/navigation_handler.dart';
 import 'package:ams_android/core/routes/app_router.dart';
@@ -15,7 +17,7 @@ class AppInitializer {
       () async {
         WidgetsFlutterBinding.ensureInitialized();
         NavigationHandler.initialize(AppRouter());
-        // await configureDependencies(); // Remove later?
+        await configureDependencies();
         runStateObserver(); // Bloc observer
         runApp(const AmsApp());
       },

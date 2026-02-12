@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class AmsSecureStorage {
   final _storage = const FlutterSecureStorage();
 

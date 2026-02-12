@@ -1,4 +1,4 @@
-import 'package:ams_android/bloc_architecture/base_cubit.dart';
+import 'package:ams_android/base/base_cubit.dart';
 import 'package:ams_android/di/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

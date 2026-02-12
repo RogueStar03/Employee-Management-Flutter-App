@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import '../../models/attendance_model.dart';
-import '../../models/employee_model.dart';
+import '../../../models/attendance_model.dart';
+import '../../../models/employee_model.dart';
 
 // Events
 abstract class DashboardEvent extends Equatable {
